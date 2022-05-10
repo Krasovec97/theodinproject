@@ -101,6 +101,37 @@ header {
 	background-color: grey;
 }
 
+/* INFO SECTION */
+
+.info-section {
+	margin: 0;
+	padding: 25px;
+	padding-bottom: 45px;
+}
+
+.info-section h2 {
+	text-align: center;
+	font-size: 36px;
+	font-weight: 800;
+}
+
+.info-section .card-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.info-section .card {
+	text-align: center;
+}
+
+.info-section .card-image {
+	max-width: 200px;
+	border-radius: var(--border-rad);
+}
+
+/* QUOTE SECTION */
+
 /* FOOTER */
 
 footer {
