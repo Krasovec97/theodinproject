@@ -4,6 +4,7 @@
 	--main-white: #f9faf8;
 	--main-dark-bg: #1f2937;
 	--main-blue: #3882f6;
+	--main-grey: #e5e7eb
 
 	--border-rad: 8px;
 }
@@ -134,6 +135,22 @@ header {
 }
 
 /* QUOTE SECTION */
+
+.quote-section {
+	background-color: var(--main-grey);
+}
+
+.quote-section .container {
+	display: flex;
+	flex-direction: column;
+}
+
+.quote-section .quote {
+	font-size: 36px;
+	font-weight: 300;
+	font-style: italic;
+	color: var(--main-dark-bg);
+}
 
 /* FOOTER */
 
