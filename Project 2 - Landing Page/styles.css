@@ -4,7 +4,7 @@
 	--main-white: #f9faf8;
 	--main-dark-bg: #1f2937;
 	--main-blue: #3882f6;
-	--main-grey: #e5e7eb
+	--main-grey: #e5e7eb;
 
 	--border-rad: 8px;
 }
@@ -16,7 +16,7 @@ body {
 }
 
 .container {
-	width: 1400px;
+	width: 1000px;
 	margin: 0 auto;
 }
 
@@ -137,12 +137,15 @@ header {
 /* QUOTE SECTION */
 
 .quote-section {
+	padding: 150px;
 	background-color: var(--main-grey);
 }
 
 .quote-section .container {
 	display: flex;
 	flex-direction: column;
+	align-items: flex-end;
+	width: 700px;
 }
 
 .quote-section .quote {
@@ -152,10 +155,51 @@ header {
 	color: var(--main-dark-bg);
 }
 
+.quote-section .author {
+	font-size: 20px;
+	font-weight: 900;
+}
+
+/* CTA SECTION */
+.cta-section .cta-container {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin-left: auto;
+	background-color: var(--main-blue);
+	margin: 75px;
+	padding: 65px;
+	color: var(--main-white);
+	border-radius: var(--border-rad);
+}
+
+.cta-section h2 {
+	margin: 0;
+}
+
+.cta-section p {
+	margin: 0;
+	font-weight: 300;
+}
+
+.cta-section button {
+	background-color: var(--main-blue);
+	border: 2px solid var(--main-white);
+	padding: 10px 40px;
+	color: var(--main-white);
+	border-radius: var(--border-rad);
+	font-weight: 600;
+}
+
 /* FOOTER */
 
 footer {
+	background-color: var(--main-dark-bg);
+	color: var(--main-white);
 	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
 }
 
 .footer-text {
