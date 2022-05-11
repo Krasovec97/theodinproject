@@ -16,7 +16,7 @@ body {
 }
 
 .container {
-	width: 1000px;
+	width: 1250px;
 	margin: 0 auto;
 }
 
@@ -34,7 +34,7 @@ header {
 	color: var(--main-white);
 }
 
-.logo > h1 {
+.logo>h1 {
 	font-size: 24px;
 	color: var(--main-white);
 	font-weight: 900;
@@ -44,12 +44,12 @@ header {
 	margin-left: auto;
 }
 
-.menu > ul {
+.menu>ul {
 	display: flex;
 	list-style-type: none;
 }
 
-.menu > ul > li {
+.menu>ul>li {
 	margin: 10px;
 }
 
@@ -69,7 +69,7 @@ header {
 }
 
 .hero-section .content {
-	max-width: 500px;
+	max-width: 400px;
 }
 
 .hero-section h1 {
@@ -123,14 +123,18 @@ header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	gap: 50px;
 }
+
 
 .info-section .card {
 	text-align: center;
+	width: 200px;
 }
 
 .info-section .card-image {
 	max-width: 200px;
+	height: auto;
 	border-radius: var(--border-rad);
 }
 
@@ -203,6 +207,6 @@ footer {
 }
 
 .footer-text {
-	padding: 25px;
+	padding: 35px;
 	margin: 0 auto;
 }
