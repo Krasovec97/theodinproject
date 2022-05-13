@@ -32,40 +32,33 @@ function playerPlay() {
 }
 
 function playRound(computerChoice, playerChoice) {
-	// rock(1) beats scissors (3)
-	// paper (2) beats rock (1)
-	// scissors (3) beat paper (2)
-	// or it ties
+	// Save player choice to variable
+	playerRock = playerChoice === "rock";
+	playerScissors = playerChoice === "scissors";
+	playerPaper = playerChoice === "paper";
 
-	if (computerChoice === "rock" && playerChoice === "rock") {
-		console.log("its a tie!");
-	}
-	if (computerChoice === "paper" && playerChoice === "paper") {
-		console.log("its a tie!");
-	}
-	if (computerChoice === "scissors" && playerChoice === "scissors") {
-		console.log("its a tie!");
-	}
-	if (computerChoice === "scissors" && playerChoice === "rock") {
-		console.log("Player won!");
-	}
-	if (computerChoice === "rock" && playerChoice === "scissors") {
-		console.log("Computer won!");
-	}
-	if (computerChoice === "paper" && playerChoice === "rock") {
-		console.log("Computer won!");
-	}
-	if (computerChoice === "rock" && playerChoice === "paper") {
-		console.log("Player won!");
-	}
-	if (computerChoice === "scissors" && playerChoice === "paper") {
-		console.log("Computer won!");
-	}
-	if (computerChoice === "paper" && playerChoice === "scissors") {
-		console.log("Player won!");
-	}
+	// Save computer choice to variable
+	computerRock = computerChoice === "rock";
+	computerScissors = computerChoice === "scissors";
+	computerPaper = computerChoice === "paper";
 
-	console.log(computerChoice, playerChoice);
+	// Game logic
+
+	console.log(`The player chose: ${playerChoice}`);
+	console.log(`The computer chose: ${computerChoice}`);
+
+	// Player win conditions
+	if ((playerRock && computerScissors) || (playerPaper && computerRock) || (playerScissors && computerPaper))
+		console.log("Player wins!");
+
+	// Computer win conditions
+	if ((computerRock && playerScissors) || (computerPaper && playerRock) || (computerScissors && playerPaper))
+		console.log("Computer Wins!");
+
+	// Tie condition
+	if (playerChoice === computerChoice) console.log("It's a tie!");
 }
+
+function gameJudge() {}
 
 playRound(computerChoice, playerChoice);
