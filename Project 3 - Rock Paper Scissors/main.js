@@ -59,4 +59,6 @@ function playRound(computerChoice, playerChoice) {
 	if (playerChoice === computerChoice) console.log("It's a tie!");
 }
 
-function playGame() {}
+playRound(computerChoice, playerChoice);
+
+// function playGame() {}
