@@ -1,46 +1,41 @@
-let computerChoice = computerPlay();
-let playerChoice = playerPlay();
-
-function computerPlay() {
-	let value = Math.floor(Math.random() * 3 + 1);
-	let computerChose = "";
+const computerPlay = () => {
+	const value = Math.floor(Math.random() * 3 + 1);
 
 	switch (value) {
 		case 1:
-			computerChose = "rock";
-			break;
+			return 'rock';
 		case 2:
-			computerChose = "paper";
-			break;
+			return 'paper';
 		case 3:
-			computerChose = "scissors";
-			break;
+			return 'scissors';
 	}
+};
 
-	return computerChose;
-}
+const playerPlay = () => {
+	const player = prompt('Enter rock, paper or scissors!').toLowerCase();
+	const options = ['rock', 'paper', 'scissors'];
 
-function playerPlay() {
-	const player = prompt("Enter rock, paper or scissors!").toLowerCase();
-
-	if (player !== "rock" && player !== "paper" && player !== "scissors") {
+	if (!options.includes(player)) {
 		setTimeout(() => location.reload(), 500);
-		alert("Not valid! Please enter your choice again.");
+		alert('Not valid! Please enter your choice again.');
 	}
 
 	return player;
-}
+};
 
-function playRound(computerChoice, playerChoice) {
+let computerChoice = computerPlay();
+let playerChoice = playerPlay();
+
+const playRound = (playerChoice, computerChoice) => {
 	// Save player choice to variable
-	playerRock = playerChoice === "rock";
-	playerScissors = playerChoice === "scissors";
-	playerPaper = playerChoice === "paper";
+	playerRock = playerChoice === 'rock';
+	playerScissors = playerChoice === 'scissors';
+	playerPaper = playerChoice === 'paper';
 
 	// Save computer choice to variable
-	computerRock = computerChoice === "rock";
-	computerScissors = computerChoice === "scissors";
-	computerPaper = computerChoice === "paper";
+	computerRock = computerChoice === 'rock';
+	computerScissors = computerChoice === 'scissors';
+	computerPaper = computerChoice === 'paper';
 
 	// Game logic
 
@@ -48,17 +43,21 @@ function playRound(computerChoice, playerChoice) {
 	console.log(`The computer chose: ${computerChoice}`);
 
 	// Player win conditions
-	if ((playerRock && computerScissors) || (playerPaper && computerRock) || (playerScissors && computerPaper))
-		console.log("Player wins!");
+	if ((playerRock && computerScissors) || (playerPaper && computerRock) || (playerScissors && computerPaper)) {
+		return 'The player wins!';
+	}
 
 	// Computer win conditions
-	if ((computerRock && playerScissors) || (computerPaper && playerRock) || (computerScissors && playerPaper))
-		console.log("Computer Wins!");
+	if ((computerRock && playerScissors) || (computerPaper && playerRock) || (computerScissors && playerPaper)) {
+		return 'The computer wins!';
+	}
 
 	// Tie condition
-	if (playerChoice === computerChoice) console.log("It's a tie!");
-}
+	if (playerChoice === computerChoice) {
+		return `It's a tie!`;
+	}
+};
 
-playRound(computerChoice, playerChoice);
+console.log(playRound(playerChoice, computerChoice));
 
 // function playGame() {}
