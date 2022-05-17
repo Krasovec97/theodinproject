@@ -16,15 +16,12 @@ const playerPlay = () => {
 	const options = ['rock', 'paper', 'scissors'];
 
 	if (!options.includes(player)) {
-		setTimeout(() => location.reload(), 500);
 		alert('Not valid! Please enter your choice again.');
+		return setTimeout(() => location.reload(), 500);
 	}
 
 	return player;
 };
-
-let computerChoice = computerPlay();
-let playerChoice = playerPlay();
 
 const playRound = (playerChoice, computerChoice) => {
 	// Save player choice to variable
@@ -38,26 +35,46 @@ const playRound = (playerChoice, computerChoice) => {
 	computerPaper = computerChoice === 'paper';
 
 	// Game logic
-
 	console.log(`The player chose: ${playerChoice}`);
 	console.log(`The computer chose: ${computerChoice}`);
 
 	// Player win conditions
 	if ((playerRock && computerScissors) || (playerPaper && computerRock) || (playerScissors && computerPaper)) {
-		return 'The player wins!';
+		console.log('The player wins!');
+		playerWon = true;
+		return (playerWon = true);
 	}
 
 	// Computer win conditions
 	if ((computerRock && playerScissors) || (computerPaper && playerRock) || (computerScissors && playerPaper)) {
-		return 'The computer wins!';
+		console.log('The computer wins!');
+		return (computerWon = true);
 	}
 
 	// Tie condition
 	if (playerChoice === computerChoice) {
-		return `It's a tie!`;
+		console.log(`It's a tie!`);
+		return (tied = true);
 	}
 };
 
-console.log(playRound(playerChoice, computerChoice));
+const playGame = () => {
+	for (let i = 1; i <= 5; i++) {
+		const play = playRound(playerPlay(), computerPlay());
 
-// function playGame() {}
+		if () {
+			console.log('Playgame: PLAYER WON!');
+		}
+
+		if () {
+			console.log('Playgame: COMPUTER WON!');
+		}
+
+		if () {
+			console.log('Playgame: PLAYER WON!');
+		}
+		console.log(play);
+	}
+};
+
+playGame();
