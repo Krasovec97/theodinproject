@@ -23,7 +23,10 @@ const playerPlay = () => {
 	return player;
 };
 
-const playRound = (playerChoice, computerChoice) => {
+const playRound = () => {
+	const playerChoice = playerPlay();
+	const computerChoice = computerPlay();
+
 	// Save player choice to variable
 	playerRock = playerChoice === 'rock';
 	playerScissors = playerChoice === 'scissors';
@@ -38,43 +41,34 @@ const playRound = (playerChoice, computerChoice) => {
 	console.log(`The player chose: ${playerChoice}`);
 	console.log(`The computer chose: ${computerChoice}`);
 
+	let playerWon = false;
+	let computerWon = false;
+	let tied = false;
+
 	// Player win conditions
 	if ((playerRock && computerScissors) || (playerPaper && computerRock) || (playerScissors && computerPaper)) {
 		console.log('The player wins!');
 		playerWon = true;
-		return (playerWon = true);
 	}
 
 	// Computer win conditions
 	if ((computerRock && playerScissors) || (computerPaper && playerRock) || (computerScissors && playerPaper)) {
 		console.log('The computer wins!');
-		return (computerWon = true);
+		computerWon = true;
 	}
 
 	// Tie condition
 	if (playerChoice === computerChoice) {
 		console.log(`It's a tie!`);
-		return (tied = true);
+		tied = true;
 	}
+
+	return { playerWon, computerWon, tied };
 };
 
 const playGame = () => {
-	for (let i = 1; i <= 5; i++) {
-		const play = playRound(playerPlay(), computerPlay());
-
-		if () {
-			console.log('Playgame: PLAYER WON!');
-		}
-
-		if () {
-			console.log('Playgame: COMPUTER WON!');
-		}
-
-		if () {
-			console.log('Playgame: PLAYER WON!');
-		}
-		console.log(play);
-	}
+	const { playerWon, computerWon, tied } = playRound();
+	console.log(playerWon);
 };
 
 playGame();
