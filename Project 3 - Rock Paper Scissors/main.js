@@ -67,8 +67,36 @@ const playRound = () => {
 };
 
 const playGame = () => {
-	const { playerWon, computerWon, tied } = playRound();
-	console.log(playerWon);
+	let roundCounter = 0;
+	let playerScore = 0;
+	let computerScore = 0;
+
+	while (roundCounter < 5) {
+		const { playerWon, computerWon, tied } = playRound();
+
+		if (playerWon) {
+			playerScore++;
+			roundCounter++;
+			console.log(`Player score is: ${playerScore} and its currently the ${roundCounter} round.`);
+		}
+		if (computerWon) {
+			computerScore++;
+			roundCounter++;
+			console.log(`Computer score is: ${computerScore} and its currently the ${roundCounter} round.`);
+		}
+		if (tied) {
+			console.log(`It's a tie, this round does not count!`);
+			continue;
+		}
+	}
+
+	if (roundCounter === 5) {
+		if (playerScore > computerScore) {
+			console.log('The Player WON!');
+		} else {
+			console.log('The Computer WON!');
+		}
+	}
 };
 
 playGame();
