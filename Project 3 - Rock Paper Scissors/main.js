@@ -62,40 +62,40 @@ const playRound = () => {
 	return { playerWon, computerWon, tied };
 };
 
-const playGame = () => {
-	// Initialize counters
-	let roundCounter = 0;
-	let playerScore = 0;
-	let computerScore = 0;
+// const playGame = () => {
+// 	// Initialize counters
+// 	let roundCounter = 0;
+// 	let playerScore = 0;
+// 	let computerScore = 0;
 
-	// Invoke the loop
-	while (roundCounter < 5) {
-		const { playerWon, computerWon, tied } = playRound();
+// 	// Invoke the loop
+// 	while (roundCounter < 5) {
+// 		const { playerWon, computerWon, tied } = playRound();
 
-		if (playerWon) {
-			playerScore++;
-			roundCounter++;
-			console.log(`Player won! Player score is: ${playerScore} and its currently the ${roundCounter} round.`);
-		}
-		if (computerWon) {
-			computerScore++;
-			roundCounter++;
-			console.log(`Computer won! Computer score is: ${computerScore} and its currently the ${roundCounter} round.`);
-		}
-		if (tied) {
-			console.log(`It's a tie, this round does not count!`);
-			continue;
-		}
-	}
+// 		if (playerWon) {
+// 			playerScore++;
+// 			roundCounter++;
+// 			console.log(`Player won! Player score is: ${playerScore} and its currently the ${roundCounter} round.`);
+// 		}
+// 		if (computerWon) {
+// 			computerScore++;
+// 			roundCounter++;
+// 			console.log(`Computer won! Computer score is: ${computerScore} and its currently the ${roundCounter} round.`);
+// 		}
+// 		if (tied) {
+// 			console.log(`It's a tie, this round does not count!`);
+// 			continue;
+// 		}
+// 	}
 
-	//Check if game is over, return results
-	if (roundCounter === 5) {
-		if (playerScore > computerScore) {
-			return alert('Player won!');
-		} else {
-			return alert('Computer won!');
-		}
-	}
-};
+// 	//Check if game is over, return results
+// 	if (roundCounter === 5) {
+// 		if (playerScore > computerScore) {
+// 			return alert('Player won!');
+// 		} else {
+// 			return alert('Computer won!');
+// 		}
+// 	}
+// };
 
-playGame();
+// playGame();
