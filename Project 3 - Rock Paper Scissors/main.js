@@ -5,6 +5,7 @@ const domElements = {
 	playerScoreDisplay: document.querySelector('.score .score__player'),
 	computerScoreDisplay: document.querySelector('.score .score__computer'),
 	playerController: document.querySelector('.player-control'),
+	winScreen: document.querySelector('.win-screen'),
 };
 
 const computerPlay = () => {
@@ -95,9 +96,17 @@ const playerPlay = (id, data) => {
 	//Check if game is over, return results
 	if (data.roundCounter === 5) {
 		if (data.playerScore > data.computerScore) {
-			return alert('Player won!');
+			// Player won
+			domElements.winScreen.classList.remove('hidden');
+			domElements.playerController.classList.add('disabled');
+			domElements.winScreen.textContent = 'The player wins!';
+			return;
 		} else {
-			return alert('Computer won!');
+			// Computer won
+			domElements.winScreen.classList.remove('hidden');
+			domElements.playerController.classList.add('disabled');
+			domElements.winScreen.textContent = 'The computer wins!';
+			return;
 		}
 	}
 };
