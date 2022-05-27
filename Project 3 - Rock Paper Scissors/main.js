@@ -11,20 +11,7 @@ const computerPlay = () => {
 	}
 };
 
-const playerPlay = () => {
-	const player = prompt('Enter rock, paper or scissors!').toLowerCase();
-	const options = ['rock', 'paper', 'scissors'];
-
-	if (!options.includes(player)) {
-		alert('Not valid! Please enter your choice again.');
-		return setTimeout(() => location.reload(), 500);
-	}
-
-	return player;
-};
-
-const playRound = () => {
-	const playerChoice = playerPlay();
+const playRound = (playerChoice) => {
 	const computerChoice = computerPlay();
 
 	// Save player choice to variable
@@ -62,40 +49,47 @@ const playRound = () => {
 	return { playerWon, computerWon, tied };
 };
 
-// const playGame = () => {
-// 	// Initialize counters
-// 	let roundCounter = 0;
-// 	let playerScore = 0;
-// 	let computerScore = 0;
+const playGame = () => {
+	const data = {
+		roundCounter: 0,
+		playerScore: 0,
+		computerScore: 0,
+	};
 
-// 	// Invoke the loop
-// 	while (roundCounter < 5) {
-// 		const { playerWon, computerWon, tied } = playRound();
+	const buttons = document.querySelectorAll('.player-options__button');
+	buttons.forEach((button) => button.addEventListener('click', () => playerPlay(button.id, data)));
+};
 
-// 		if (playerWon) {
-// 			playerScore++;
-// 			roundCounter++;
-// 			console.log(`Player won! Player score is: ${playerScore} and its currently the ${roundCounter} round.`);
-// 		}
-// 		if (computerWon) {
-// 			computerScore++;
-// 			roundCounter++;
-// 			console.log(`Computer won! Computer score is: ${computerScore} and its currently the ${roundCounter} round.`);
-// 		}
-// 		if (tied) {
-// 			console.log(`It's a tie, this round does not count!`);
-// 			continue;
-// 		}
-// 	}
+const playerPlay = (id, data) => {
+	// Invoke the loop
+	if (data.roundCounter < 5) {
+		const { playerWon, computerWon, tied } = playRound(id);
 
-// 	//Check if game is over, return results
-// 	if (roundCounter === 5) {
-// 		if (playerScore > computerScore) {
-// 			return alert('Player won!');
-// 		} else {
-// 			return alert('Computer won!');
-// 		}
-// 	}
-// };
+		if (playerWon) {
+			data.playerScore += 1;
+			data.roundCounter += 1;
+			console.log(`Player won! Player score is: ${data.playerScore} and its currently the ${data.roundCounter} round.`);
+		}
+		if (computerWon) {
+			data.computerScore += 1;
+			data.roundCounter += 1;
+			console.log(
+				`Computer won! Computer score is: ${data.computerScore} and its currently the ${data.roundCounter} round.`
+			);
+		}
+		if (tied) {
+			console.log(`It's a tie, this round does not count!`);
+		}
+	}
 
-// playGame();
+	//Check if game is over, return results
+	if (data.roundCounter === 5) {
+		if (data.playerScore > data.computerScore) {
+			return alert('Player won!');
+		} else {
+			return alert('Computer won!');
+		}
+	}
+};
+
+playGame();

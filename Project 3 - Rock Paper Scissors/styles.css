@@ -43,6 +43,19 @@ body {
 	text-align: center;
 }
 
+.player-choice h6,
+.computer-choice h6 {
+	font-size: 24px;
+	margin: 0;
+	padding: 0;
+}
+
+.player-choice p,
+.computer-choice p {
+	margin: 0;
+	padding: 0;
+}
+
 /* BUTTONS / PLAYER OPTIONS*/
 
 .player-options {
