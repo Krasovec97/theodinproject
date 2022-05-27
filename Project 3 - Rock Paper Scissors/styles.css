@@ -35,6 +35,9 @@ body {
 	padding: 30px;
 	text-align: center;
 	width: 60px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 .player-choice,
 .computer-choice {
@@ -58,6 +61,10 @@ body {
 
 /* BUTTONS / PLAYER OPTIONS*/
 
+.player-control {
+	text-align: center;
+}
+
 .player-options {
 	display: flex;
 	margin: 25px;
@@ -78,4 +85,29 @@ body {
 	background-color: #000;
 	color: #fff;
 	opacity: 0.5;
+}
+
+.game-control {
+	position: relative;
+}
+
+.win-screen {
+	font-size: 36px;
+	font-weight: 500;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	height: 50%;
+	margin-top: auto;
+}
+
+/* EXTRAS */
+
+.disabled {
+	opacity: 0.05;
+	pointer-events: none;
+}
+
+.hidden {
+	display: none;
 }

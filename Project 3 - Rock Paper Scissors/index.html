@@ -10,24 +10,33 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="round-counter">Round 1</div>
+			<div class="round-counter">Waiting for game to start...</div>
 			<div class="info-screen">
 				<div class="player-choice">
 					<h6>Player choice:</h6>
 					<p>Still choosing...</p>
 				</div>
-				<div class="score">1 : 0</div>
+				<div class="score">
+					<div class="score__player">0</div>
+					<div class="score__seperator">-</div>
+					<div class="score__computer">0</div>
+				</div>
 				<div class="computer-choice">
 					<h6>Computer choice:</h6>
 					<p>Still choosing...</p>
 				</div>
 			</div>
 
-			<h2>Make your choice:</h2>
-			<div class="player-options">
-				<button class="player-options__button" id="rock">ROCK</button>
-				<button class="player-options__button" id="paper">PAPER</button>
-				<button class="player-options__button" id="scissors">SCISSORS</button>
+			<div class="game-control">
+				<div class="win-screen hidden"></div>
+				<div class="player-control">
+					<h2>Make your choice:</h2>
+					<div class="player-options">
+						<button class="player-options__button" id="rock">ROCK</button>
+						<button class="player-options__button" id="paper">PAPER</button>
+						<button class="player-options__button" id="scissors">SCISSORS</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>

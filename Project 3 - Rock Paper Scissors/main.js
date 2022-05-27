@@ -1,3 +1,12 @@
+const domElements = {
+	roundDisplay: document.querySelector('.round-counter'),
+	playerChoiceDisplay: document.querySelector('.player-choice p'),
+	computerChoiceDisplay: document.querySelector('.computer-choice p'),
+	playerScoreDisplay: document.querySelector('.score .score__player'),
+	computerScoreDisplay: document.querySelector('.score .score__computer'),
+	playerController: document.querySelector('.player-control'),
+};
+
 const computerPlay = () => {
 	const value = Math.floor(Math.random() * 3 + 1);
 
@@ -25,7 +34,8 @@ const playRound = (playerChoice) => {
 	computerPaper = computerChoice === 'paper';
 
 	// Game logic
-	console.log(`Player chose: ${playerChoice} & computer chose: ${computerChoice}`);
+	domElements.computerChoiceDisplay.textContent = computerChoice.toUpperCase();
+	domElements.playerChoiceDisplay.textContent = playerChoice.toUpperCase();
 
 	let playerWon = false;
 	let computerWon = false;
@@ -62,24 +72,24 @@ const playGame = () => {
 
 const playerPlay = (id, data) => {
 	// Invoke the loop
-	if (data.roundCounter < 5) {
+	if (data.roundCounter <= 5) {
 		const { playerWon, computerWon, tied } = playRound(id);
 
 		if (playerWon) {
 			data.playerScore += 1;
 			data.roundCounter += 1;
-			console.log(`Player won! Player score is: ${data.playerScore} and its currently the ${data.roundCounter} round.`);
+			domElements.playerScoreDisplay.textContent = data.playerScore;
 		}
 		if (computerWon) {
 			data.computerScore += 1;
 			data.roundCounter += 1;
-			console.log(
-				`Computer won! Computer score is: ${data.computerScore} and its currently the ${data.roundCounter} round.`
-			);
+			domElements.computerScoreDisplay.textContent = data.computerScore;
 		}
 		if (tied) {
 			console.log(`It's a tie, this round does not count!`);
 		}
+
+		domElements.roundDisplay.textContent = `Round: ${data.roundCounter}`;
 	}
 
 	//Check if game is over, return results
