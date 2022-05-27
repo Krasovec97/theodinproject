@@ -1,0 +1,68 @@
+@import url('./font-face.css');
+
+body {
+	font-family: Oswald;
+}
+
+.container {
+	max-width: 1200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto;
+}
+
+.round-counter {
+	font-size: 36px;
+	font-weight: 800;
+	margin: 25px;
+}
+
+/* INFO SCREEN */
+
+.info-screen {
+	display: flex;
+	gap: 50px;
+	margin: 25px;
+	align-items: center;
+	font-size: 20px;
+}
+
+.info-screen .score {
+	font-size: 24px;
+	border: 2px solid black;
+	padding: 30px;
+	text-align: center;
+	width: 60px;
+}
+.player-choice,
+.computer-choice {
+	font-size: 30px;
+	width: 200px;
+	text-align: center;
+}
+
+/* BUTTONS / PLAYER OPTIONS*/
+
+.player-options {
+	display: flex;
+	margin: 25px;
+	gap: 50px;
+}
+
+.player-options__button {
+	padding: 15px;
+	width: 150px;
+	border: none;
+	font-family: Oswald;
+	font-weight: 500;
+	font-size: 20px;
+	transition: color 0.5s, background-color 0.5s;
+}
+
+.player-options__button:hover {
+	background-color: #000;
+	color: #fff;
+	opacity: 0.5;
+}
