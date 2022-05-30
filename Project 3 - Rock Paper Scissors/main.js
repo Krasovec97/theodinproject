@@ -107,7 +107,7 @@ const playerPlay = (id, data) => {
 			// Computer won
 			domElements.winScreen.classList.remove('hidden');
 			domElements.playerController.classList.add('disabled');
-			domElements.winScreen.innerHTML = `The player wins!<br>
+			domElements.winScreen.innerHTML = `The computer wins!<br>
 			<button class="player-options__restart-button">Play Again?</button>`;
 			restartGame();
 			return;
