@@ -108,16 +108,14 @@ const playerPlay = (id, data) => {
 			// Player won
 			domElements.winScreen.classList.remove('hidden');
 			domElements.playerController.classList.add('disabled');
-			domElements.winScreen.innerHTML = `The player wins!<br>
-			<button class="player-options__restart-button">Play Again?</button>`;
+			displayResults('player');
 			restartGame();
 			return;
 		} else {
 			// Computer won
 			domElements.winScreen.classList.remove('hidden');
 			domElements.playerController.classList.add('disabled');
-			domElements.winScreen.innerHTML = `The computer wins!<br>
-			<button class="player-options__restart-button">Play Again?</button>`;
+			displayResults('computer');
 			restartGame();
 			return;
 		}
@@ -129,7 +127,10 @@ const restartGame = () => {
 	return button.addEventListener('click', () => location.reload());
 };
 
-playGame();
+const displayResults = (winner) => {
+	return (domElements.winScreen.innerHTML = `The ${winner} wins!<br>
+	<button class="player-options__restart-button">Play Again?</button>`);
+};
 
 const animate = (choiceDisplay) => {
 	return choiceDisplay.animate([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], {
@@ -137,3 +138,5 @@ const animate = (choiceDisplay) => {
 		iterations: 1,
 	});
 };
+
+playGame();
