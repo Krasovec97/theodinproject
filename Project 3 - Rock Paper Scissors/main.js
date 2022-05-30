@@ -103,8 +103,9 @@ const playerPlay = (id, data) => {
 	}
 
 	//Check if game is over, return results
-	if (data.roundCounter === 5)
-		data.playerScore > data.computerScore ? handleResults('player') : handleResults('computer');
+	if (data.roundCounter === 5) {
+		handleResults(data.playerScore > data.computerScore ? 'player' : 'computer');
+	}
 };
 
 const restartGame = () => {
