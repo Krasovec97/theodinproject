@@ -1,25 +1,24 @@
 const userInput = 16;
 
 const elements = {
-	gridContainer: document.querySelector('.grid-container'),
+	gridContainer: document.getElementById('grid-container'),
 };
 
 const gridGenerate = (userInput) => {
 	const rows = Array.from(Array(userInput));
 	const cols = Array.from(Array(userInput));
 
-	elements.gridContainer.setAttribute('--grid-rows', rows);
-	elements.gridContainer.setAttribute('--grid-cols', cols);
+	elements.gridContainer.style.setProperty('--grid-cols', cols.length);
+	elements.gridContainer.style.setProperty('--grid-rows', rows.length);
 
-	rows.forEach(() => {
+	const cellGenerate = () => {
 		const cell = document.createElement('div');
-		elements.gridContainer.appendChild(cell).className = 'grid-item';
-	});
+		cell.classList.add('grid-item');
+		elements.gridContainer.appendChild(cell);
+	};
 
-	cols.forEach(() => {
-		const cell = document.createElement('div');
-		elements.gridContainer.appendChild(cell).className = 'grid-item';
-	});
+	cols.forEach(() => cellGenerate());
+	rows.forEach(() => cellGenerate());
 };
 
 gridGenerate(userInput);
