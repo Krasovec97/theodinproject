@@ -103,6 +103,21 @@ body {
 
 /* EXTRAS */
 
+.player-options__restart-button {
+	padding: 15px;
+	width: 150px;
+	border: none;
+	font-family: Oswald;
+	font-weight: 500;
+	font-size: 20px;
+	transition: color 0.5s, background-color 0.5s;
+}
+
+.player-options__restart-button:hover {
+	background-color: #000;
+	color: #fff;
+}
+
 .disabled {
 	opacity: 0.05;
 	pointer-events: none;

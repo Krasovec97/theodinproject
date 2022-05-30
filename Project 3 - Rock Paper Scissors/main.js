@@ -99,16 +99,25 @@ const playerPlay = (id, data) => {
 			// Player won
 			domElements.winScreen.classList.remove('hidden');
 			domElements.playerController.classList.add('disabled');
-			domElements.winScreen.textContent = 'The player wins!';
+			domElements.winScreen.innerHTML = `The player wins!<br>
+			<button class="player-options__restart-button">Play Again?</button>`;
+			restartGame();
 			return;
 		} else {
 			// Computer won
 			domElements.winScreen.classList.remove('hidden');
 			domElements.playerController.classList.add('disabled');
-			domElements.winScreen.textContent = 'The computer wins!';
+			domElements.winScreen.innerHTML = `The player wins!<br>
+			<button class="player-options__restart-button">Play Again?</button>`;
+			restartGame();
 			return;
 		}
 	}
+};
+
+const restartGame = () => {
+	const button = document.querySelector('.player-options__restart-button');
+	return button.addEventListener('click', () => location.reload());
 };
 
 playGame();
