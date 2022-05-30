@@ -13,7 +13,15 @@
 		<div class="container">
 			<div class="heading">Etch a Sketch</div>
 			<div class="main-content">
-				<div class="main-content__controls"></div>
+				<div class="main-content__controls">
+					<div class="grid-size">
+						<label for="grid-size">
+							Enter your desired grid size
+							<input min="1" max="60" value="1" name="grid-size" id="grid-size-input" type="range" />
+							<div class="grid-size__output">Pick your desired grid</div>
+						</label>
+					</div>
+				</div>
 				<div id="main-content__grid-container"></div>
 			</div>
 		</div>

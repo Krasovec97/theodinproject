@@ -11,7 +11,8 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 1200px;
+	margin: 0 auto;
+	max-width: 1200px;
 }
 
 .heading {
@@ -32,6 +33,12 @@
 	flex-direction: column;
 }
 
+.grid-size label {
+	display: flex;
+	flex-direction: column;
+	padding: 30px;
+}
+
 #main-content__grid-container {
 	display: grid;
 	grid-template-rows: repeat(var(--grid-rows), 1fr);
@@ -41,7 +48,6 @@
 }
 
 .grid-item {
-	padding: 1em;
+	padding: 10px;
 	border: 1px solid #ddd;
-	text-align: center;
 }
