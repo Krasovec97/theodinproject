@@ -6,6 +6,7 @@ const domElements = {
 	computerScoreDisplay: document.querySelector('.score .score__computer'),
 	playerController: document.querySelector('.player-control'),
 	winScreen: document.querySelector('.win-screen'),
+	roundResult: document.querySelector('.round-coutner__round-result'),
 };
 
 const computerPlay = () => {
@@ -68,7 +69,13 @@ const playGame = () => {
 	};
 
 	const buttons = document.querySelectorAll('.player-options__button');
-	buttons.forEach((button) => button.addEventListener('click', () => playerPlay(button.id, data)));
+	buttons.forEach((button) =>
+		button.addEventListener('click', () => {
+			animate(domElements.playerChoiceDisplay);
+			animate(domElements.computerChoiceDisplay);
+			return playerPlay(button.id, data);
+		})
+	);
 };
 
 const playerPlay = (id, data) => {
@@ -79,15 +86,17 @@ const playerPlay = (id, data) => {
 		if (playerWon) {
 			data.playerScore += 1;
 			data.roundCounter += 1;
+			domElements.roundResult.textContent = 'Player won this round!';
 			domElements.playerScoreDisplay.textContent = data.playerScore;
 		}
 		if (computerWon) {
 			data.computerScore += 1;
 			data.roundCounter += 1;
+			domElements.roundResult.textContent = 'Computer won this round!';
 			domElements.computerScoreDisplay.textContent = data.computerScore;
 		}
 		if (tied) {
-			console.log(`It's a tie, this round does not count!`);
+			domElements.roundResult.textContent = 'Tie! Round does not count!';
 		}
 
 		domElements.roundDisplay.textContent = `Round: ${data.roundCounter}`;
@@ -121,3 +130,10 @@ const restartGame = () => {
 };
 
 playGame();
+
+const animate = (choiceDisplay) => {
+	return choiceDisplay.animate([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], {
+		duration: 600,
+		iterations: 1,
+	});
+};
