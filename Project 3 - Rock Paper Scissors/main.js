@@ -103,23 +103,8 @@ const playerPlay = (id, data) => {
 	}
 
 	//Check if game is over, return results
-	if (data.roundCounter === 5) {
-		if (data.playerScore > data.computerScore) {
-			// Player won
-			domElements.winScreen.classList.remove('hidden');
-			domElements.playerController.classList.add('disabled');
-			displayResults('player');
-			restartGame();
-			return;
-		} else {
-			// Computer won
-			domElements.winScreen.classList.remove('hidden');
-			domElements.playerController.classList.add('disabled');
-			displayResults('computer');
-			restartGame();
-			return;
-		}
-	}
+	if (data.roundCounter === 5)
+		data.playerScore > data.computerScore ? handleResults('player') : handleResults('computer');
 };
 
 const restartGame = () => {
@@ -127,9 +112,12 @@ const restartGame = () => {
 	return button.addEventListener('click', () => location.reload());
 };
 
-const displayResults = (winner) => {
-	return (domElements.winScreen.innerHTML = `The ${winner} wins!<br>
-	<button class="player-options__restart-button">Play Again?</button>`);
+const handleResults = (winner) => {
+	domElements.winScreen.classList.remove('hidden');
+	domElements.playerController.classList.add('disabled');
+	domElements.winScreen.innerHTML = `The ${winner} wins!<br>
+	<button class="player-options__restart-button">Play Again?</button>`;
+	restartGame();
 };
 
 const animate = (choiceDisplay) => {
