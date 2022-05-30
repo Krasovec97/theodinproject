@@ -1,13 +1,43 @@
+@import url('./font-face.css');
+
 :root {
 	--grid-cols: 1;
 	--grid-rows: 1;
+	font-family: Oswald;
 }
 
-#grid-container {
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 1200px;
+}
+
+.heading {
+	font-size: 32px;
+	padding: 30px;
+}
+
+.controls {
+	width: 40%;
+}
+
+.main-content {
+	display: flex;
+}
+
+.main-content__controls {
+	display: flex;
+	flex-direction: column;
+}
+
+#main-content__grid-container {
 	display: grid;
-	grid-gap: 1em;
 	grid-template-rows: repeat(var(--grid-rows), 1fr);
 	grid-template-columns: repeat(var(--grid-cols), 1fr);
+	width: 60%;
+	height: 60%;
 }
 
 .grid-item {
