@@ -13,6 +13,7 @@ const elements = {
 
 const colorManagement = (color, mode) => {
 	const gridItems = document.querySelectorAll('.grid-item');
+	let numberOfEvents = 0;
 
 	switch (mode) {
 		case 'rainbow':
@@ -27,7 +28,8 @@ const colorManagement = (color, mode) => {
 		case 'darken':
 			gridItems.forEach((item) => {
 				item.addEventListener('mouseenter', (event) => {
-					console.log(event);
+					numberOfEvents += 1;
+					console.log(numberOfEvents);
 				});
 			});
 			break;
@@ -84,7 +86,7 @@ const controlsInit = () => {
 	});
 
 	elements.darkenBtn.addEventListener('click', () => {
-		colorManagement(null, 'darken');
+		colorManagement('black', 'darken');
 	});
 
 	elements.colorPicker.addEventListener('input', () => {
