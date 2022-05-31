@@ -28,6 +28,8 @@
 	display: flex;
 }
 
+/* CONTROLS */
+
 .main-content__controls {
 	display: flex;
 	flex-direction: column;
@@ -36,18 +38,21 @@
 .grid-size label {
 	display: flex;
 	flex-direction: column;
-	padding: 30px;
+	font-size: 20px;
+	padding: 20px;
 }
+
+/* GRID */
 
 #main-content__grid-container {
 	display: grid;
 	grid-template-rows: repeat(var(--grid-rows), 1fr);
 	grid-template-columns: repeat(var(--grid-cols), 1fr);
-	width: 60%;
-	height: 60%;
+	width: 900px;
+	height: 900px;
 }
 
 .grid-item {
-	padding: 10px;
+	padding: auto;
 	border: 1px solid #ddd;
 }
