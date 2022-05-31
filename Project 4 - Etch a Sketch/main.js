@@ -5,6 +5,8 @@ const elements = {
 	slider: document.querySelector('#grid-size-input'),
 	sliderOutput: document.querySelector('.grid-size__output'),
 	resetBtn: document.querySelector('#reset-button'),
+	darkenBtn: document.querySelector('#darken-button'),
+	lightenBtn: document.querySelector('#lighten-button'),
 	rainbowBtn: document.querySelector('#rainbow-button'),
 	colorPicker: document.querySelector('#color-pick-input'),
 };
@@ -14,19 +16,30 @@ const colorManagement = (color, mode) => {
 
 	switch (mode) {
 		case 'rainbow':
-	}
-	gridItems.forEach((item) => {
-		item.addEventListener('mouseenter', (event) => {
-			const randColor = randomColor();
-			event.target.style.setProperty('background-color', `${randColor}`);
-		});
-	});
+			gridItems.forEach((item) => {
+				item.addEventListener('mouseenter', (event) => {
+					const randColor = randomColor();
+					event.target.style.setProperty('background-color', `${randColor}`);
+				});
+			});
+			break;
 
-	gridItems.forEach((item) => {
-		item.addEventListener('mouseenter', (event) => {
-			event.target.style.setProperty('background-color', `${color}`);
-		});
-	});
+		case 'darken':
+			gridItems.forEach((item) => {
+				item.addEventListener('mouseenter', (event) => {
+					console.log(event);
+				});
+			});
+			break;
+
+		default:
+			gridItems.forEach((item) => {
+				item.addEventListener('mouseenter', (event) => {
+					event.target.style.setProperty('background-color', `${color}`);
+				});
+			});
+			break;
+	}
 };
 
 const gridGenerate = (userInput) => {
@@ -48,15 +61,15 @@ const gridGenerate = (userInput) => {
 };
 
 const controlsInit = () => {
-	elements.slider.oninput = () => {
+	elements.slider.addEventListener('input', () => {
 		elements.sliderOutput.textContent = `Desired grid size: ${elements.slider.value} x ${elements.slider.value}`;
-	};
+	});
 
-	elements.slider.onmouseup = () => {
+	elements.slider.addEventListener('mouseup', () => {
 		userInput = elements.slider.value;
 		elements.gridContainer.innerHTML = '';
 		gridGenerate(userInput);
-	};
+	});
 
 	elements.resetBtn.addEventListener('click', () => {
 		const cells = document.querySelectorAll('.grid-item');
@@ -68,6 +81,10 @@ const controlsInit = () => {
 
 	elements.rainbowBtn.addEventListener('click', () => {
 		colorManagement(randomColor(), 'rainbow');
+	});
+
+	elements.darkenBtn.addEventListener('click', () => {
+		colorManagement(null, 'darken');
 	});
 
 	elements.colorPicker.addEventListener('input', () => {
