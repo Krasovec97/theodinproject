@@ -42,12 +42,27 @@
 	margin: 20px;
 }
 
+.color-pick {
+	margin: 20px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.color-pick input {
+	border-radius: 50%;
+	border: none;
+	background: none;
+	height: 50px;
+	width: 50px;
+}
+
 .btn {
 	margin: 20px;
 	padding: 20px;
 	border: none;
-	color: royalblue;
-	border: 1px solid royalblue;
+	color: #7f2a3c;
+	border: 1px solid #7f2a3c;
 	background: none;
 	font: Oswald;
 	font-weight: 700;
@@ -69,12 +84,13 @@
 .btn:before {
 	content: '';
 	position: absolute;
-	background: royalblue;
+	background: #7f2a3c;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	top: 100%;
 	z-index: -1;
+	transition: top 0.2s ease-in;
 	-webkit-transition: top 0.2s ease-in;
 }
 

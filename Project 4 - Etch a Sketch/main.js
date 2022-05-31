@@ -1,20 +1,31 @@
 let userInput = 16;
 
 const elements = {
-	gridContainer: document.getElementById('main-content__grid-container'),
-	slider: document.getElementById('grid-size-input'),
+	gridContainer: document.querySelector('#main-content__grid-container'),
+	slider: document.querySelector('#grid-size-input'),
 	sliderOutput: document.querySelector('.grid-size__output'),
 	resetBtn: document.querySelector('#reset-button'),
+	rainbowBtn: document.querySelector('#rainbow-button'),
+	colorPicker: document.querySelector('#color-pick-input'),
 };
 
-const colorManagement = (color) => {
+const colorManagement = (color, mode) => {
 	const gridItems = document.querySelectorAll('.grid-item');
 
-	gridItems.forEach((item) => {
-		item.addEventListener('mouseenter', (event) => {
-			event.target.style.setProperty('background-color', `${color}`);
+	if (mode === 'rainbow') {
+		gridItems.forEach((item) => {
+			item.addEventListener('mouseenter', (event) => {
+				const randColor = randomColor();
+				event.target.style.setProperty('background-color', `${randColor}`);
+			});
 		});
-	});
+	} else {
+		gridItems.forEach((item) => {
+			item.addEventListener('mouseenter', (event) => {
+				event.target.style.setProperty('background-color', `${color}`);
+			});
+		});
+	}
 };
 
 const gridGenerate = (userInput) => {
@@ -32,7 +43,7 @@ const gridGenerate = (userInput) => {
 		currentCells++;
 	}
 
-	colorManagement('red');
+	colorManagement('black');
 };
 
 const controlsInit = () => {
@@ -51,7 +62,26 @@ const controlsInit = () => {
 		cells.forEach((cell) => {
 			cell.style.setProperty('background-color', 'white');
 		});
+		colorManagement('black');
 	});
+
+	elements.rainbowBtn.addEventListener('click', () => {
+		colorManagement(randomColor(), 'rainbow');
+	});
+
+	elements.colorPicker.addEventListener('input', (e) => {
+		console.log(e);
+	});
+};
+
+const randomColor = () => {
+	return (
+		'#' +
+		Math.floor(Math.random() * 16777215)
+			.toString(16)
+			.padStart(6, '0')
+			.toUpperCase()
+	);
 };
 
 gridGenerate(userInput);
