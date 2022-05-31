@@ -12,20 +12,21 @@ const elements = {
 const colorManagement = (color, mode) => {
 	const gridItems = document.querySelectorAll('.grid-item');
 
-	if (mode === 'rainbow') {
-		gridItems.forEach((item) => {
-			item.addEventListener('mouseenter', (event) => {
-				const randColor = randomColor();
-				event.target.style.setProperty('background-color', `${randColor}`);
-			});
-		});
-	} else {
-		gridItems.forEach((item) => {
-			item.addEventListener('mouseenter', (event) => {
-				event.target.style.setProperty('background-color', `${color}`);
-			});
-		});
+	switch (mode) {
+		case 'rainbow':
 	}
+	gridItems.forEach((item) => {
+		item.addEventListener('mouseenter', (event) => {
+			const randColor = randomColor();
+			event.target.style.setProperty('background-color', `${randColor}`);
+		});
+	});
+
+	gridItems.forEach((item) => {
+		item.addEventListener('mouseenter', (event) => {
+			event.target.style.setProperty('background-color', `${color}`);
+		});
+	});
 };
 
 const gridGenerate = (userInput) => {
@@ -69,8 +70,8 @@ const controlsInit = () => {
 		colorManagement(randomColor(), 'rainbow');
 	});
 
-	elements.colorPicker.addEventListener('input', (e) => {
-		console.log(e);
+	elements.colorPicker.addEventListener('input', () => {
+		colorManagement(elements.colorPicker.value);
 	});
 };
 
