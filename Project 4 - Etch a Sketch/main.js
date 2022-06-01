@@ -1,6 +1,7 @@
 let userInput = 16;
 let mode = '';
 let color = '';
+let currentColor = '';
 
 const elements = {
 	gridContainer: document.querySelector('#main-content__grid-container'),
@@ -18,11 +19,16 @@ const modeManager = (colorToSet = 'black', modeToSet = '') => {
 	mode = modeToSet;
 };
 
+const opacityManager = (getItem, opacityToSet) => {
+	getItem.style.setProperty('opacity', opacityToSet);
+};
+
 const setColorManagement = () => {
 	const gridItems = document.querySelectorAll('.grid-item');
 
 	gridItems.forEach((item) => {
-		let called = 0;
+		let rgbColorValue = 255;
+
 		item.addEventListener('mouseenter', (event) => {
 			switch (mode) {
 				case 'rainbow':
@@ -31,7 +37,19 @@ const setColorManagement = () => {
 					break;
 
 				case 'darken':
-					console.log('darken');
+					rgbColorValue -= 20;
+					event.target.style.setProperty(
+						'background-color',
+						`rgb(${rgbColorValue}, ${rgbColorValue}, ${rgbColorValue})`
+					);
+					break;
+
+				case 'lighten':
+					rgbColorValue += 20;
+					event.target.style.setProperty(
+						'background-color',
+						`rgb(${rgbColorValue}, ${rgbColorValue}, ${rgbColorValue})`
+					);
 					break;
 
 				default:
@@ -77,7 +95,7 @@ const controlsInit = () => {
 		cells.forEach((cell) => {
 			cell.style.setProperty('background-color', 'white');
 		});
-		modeManager();
+		modeManager(currentColor);
 	});
 
 	elements.rainbowBtn.addEventListener('click', () => {
@@ -88,19 +106,18 @@ const controlsInit = () => {
 		modeManager('black', 'darken');
 	});
 
+	elements.lightenBtn.addEventListener('click', () => {
+		modeManager('white', 'lighten');
+	});
+
 	elements.colorPicker.addEventListener('input', () => {
-		modeManager(elements.colorPicker.value);
+		currentColor = elements.colorPicker.value;
+		modeManager(currentColor);
 	});
 };
 
 const randomColor = () => {
-	return (
-		'#' +
-		Math.floor(Math.random() * 16777215)
-			.toString(16)
-			.padStart(6, '0')
-			.toUpperCase()
-	);
+	let ranomR = Math.random() * 255;
 };
 
 gridGenerate(userInput);
