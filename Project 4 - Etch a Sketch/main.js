@@ -1,6 +1,6 @@
 let userInput = 16;
 let mode = '';
-let color = '';
+let color = 'rgba(255, 255, 255, 1)';
 let currentColor = '';
 
 const elements = {
@@ -14,7 +14,7 @@ const elements = {
 	colorPicker: document.querySelector('#color-pick-input'),
 };
 
-const modeManager = (colorToSet = 'black', modeToSet = '') => {
+const modeManager = (colorToSet = 'rgba(0, 0, 0, 1)', modeToSet = '') => {
 	color = colorToSet;
 	mode = modeToSet;
 };
@@ -30,6 +30,9 @@ const setColorManagement = () => {
 		let rgbColorValue = 255;
 
 		item.addEventListener('mouseenter', (event) => {
+			const backgroundColor = rgbToObject(event.target.style.backgroundColor);
+			let alphaToNum = parseFloat(backgroundColor.alpha);
+
 			switch (mode) {
 				case 'rainbow':
 					const randColor = randomColor();
@@ -37,18 +40,18 @@ const setColorManagement = () => {
 					break;
 
 				case 'darken':
-					rgbColorValue -= 20;
 					event.target.style.setProperty(
 						'background-color',
-						`rgb(${rgbColorValue}, ${rgbColorValue}, ${rgbColorValue})`
+						`rgba(${backgroundColor.red}, ${backgroundColor.green}, ${backgroundColor.blue},
+							${(alphaToNum = alphaToNum + 0.1)})`
 					);
 					break;
 
 				case 'lighten':
-					rgbColorValue += 20;
 					event.target.style.setProperty(
 						'background-color',
-						`rgb(${rgbColorValue}, ${rgbColorValue}, ${rgbColorValue})`
+						`rgba(${backgroundColor.red}, ${backgroundColor.green}, ${backgroundColor.blue},
+						${(alphaToNum = alphaToNum - 0.1)})`
 					);
 					break;
 
@@ -71,6 +74,7 @@ const gridGenerate = (userInput) => {
 	while (currentCells !== cellsNeeded) {
 		const cell = document.createElement('div');
 		cell.classList.add('grid-item');
+		cell.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
 		elements.gridContainer.appendChild(cell);
 		currentCells++;
 	}
@@ -93,21 +97,22 @@ const controlsInit = () => {
 	elements.resetBtn.addEventListener('click', () => {
 		const cells = document.querySelectorAll('.grid-item');
 		cells.forEach((cell) => {
-			cell.style.setProperty('background-color', 'white');
+			cell.style.setProperty('background-color', 'rgba(255, 255, 255, 1)');
 		});
 		modeManager(currentColor);
 	});
 
 	elements.rainbowBtn.addEventListener('click', () => {
-		modeManager(randomColor(), 'rainbow');
+		currentColor = randomColor();
+		modeManager(currentColor, 'rainbow');
 	});
 
 	elements.darkenBtn.addEventListener('click', () => {
-		modeManager('black', 'darken');
+		modeManager(currentColor, 'darken');
 	});
 
 	elements.lightenBtn.addEventListener('click', () => {
-		modeManager('white', 'lighten');
+		modeManager(currentColor, 'lighten');
 	});
 
 	elements.colorPicker.addEventListener('input', () => {
@@ -117,8 +122,27 @@ const controlsInit = () => {
 };
 
 const randomColor = () => {
-	let ranomR = Math.random() * 255;
+	const randomR = Math.floor(Math.random() * 255);
+	const randomG = Math.floor(Math.random() * 255);
+	const randomB = Math.floor(Math.random() * 255);
+	const randomAlpha = Math.round(Math.random() * 10) / 10;
+
+	return `rgba(${randomR}, ${randomG}, ${randomB}, ${randomAlpha})`;
 };
+
+function rgbToObject(rgb) {
+	let colors = ['red', 'green', 'blue', 'alpha'];
+
+	let colorArr = rgb.slice(rgb.indexOf('(') + 1, rgb.indexOf(')')).split(', ');
+
+	let obj = new Object();
+
+	colorArr.forEach((color, index) => {
+		obj[colors[index]] = color;
+	});
+
+	return obj;
+}
 
 gridGenerate(userInput);
 controlsInit();
