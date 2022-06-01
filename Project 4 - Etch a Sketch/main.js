@@ -1,4 +1,6 @@
 let userInput = 16;
+let mode = '';
+let color = '';
 
 const elements = {
 	gridContainer: document.querySelector('#main-content__grid-container'),
@@ -11,37 +13,33 @@ const elements = {
 	colorPicker: document.querySelector('#color-pick-input'),
 };
 
-const colorManagement = (color, mode) => {
-	const gridItems = document.querySelectorAll('.grid-item');
-	let numberOfEvents = 0;
+const modeManager = (colorToSet = 'black', modeToSet = '') => {
+	color = colorToSet;
+	mode = modeToSet;
+};
 
-	switch (mode) {
-		case 'rainbow':
-			gridItems.forEach((item) => {
-				item.addEventListener('mouseenter', (event) => {
+const setColorManagement = () => {
+	const gridItems = document.querySelectorAll('.grid-item');
+
+	gridItems.forEach((item) => {
+		let called = 0;
+		item.addEventListener('mouseenter', (event) => {
+			switch (mode) {
+				case 'rainbow':
 					const randColor = randomColor();
 					event.target.style.setProperty('background-color', `${randColor}`);
-				});
-			});
-			break;
+					break;
 
-		case 'darken':
-			gridItems.forEach((item) => {
-				item.addEventListener('mouseenter', (event) => {
-					numberOfEvents += 1;
-					console.log(numberOfEvents);
-				});
-			});
-			break;
+				case 'darken':
+					console.log('darken');
+					break;
 
-		default:
-			gridItems.forEach((item) => {
-				item.addEventListener('mouseenter', (event) => {
+				default:
 					event.target.style.setProperty('background-color', `${color}`);
-				});
-			});
-			break;
-	}
+					break;
+			}
+		});
+	});
 };
 
 const gridGenerate = (userInput) => {
@@ -59,7 +57,8 @@ const gridGenerate = (userInput) => {
 		currentCells++;
 	}
 
-	colorManagement('black');
+	modeManager();
+	setColorManagement();
 };
 
 const controlsInit = () => {
@@ -78,19 +77,19 @@ const controlsInit = () => {
 		cells.forEach((cell) => {
 			cell.style.setProperty('background-color', 'white');
 		});
-		colorManagement('black');
+		modeManager();
 	});
 
 	elements.rainbowBtn.addEventListener('click', () => {
-		colorManagement(randomColor(), 'rainbow');
+		modeManager(randomColor(), 'rainbow');
 	});
 
 	elements.darkenBtn.addEventListener('click', () => {
-		colorManagement('black', 'darken');
+		modeManager('black', 'darken');
 	});
 
 	elements.colorPicker.addEventListener('input', () => {
-		colorManagement(elements.colorPicker.value);
+		modeManager(elements.colorPicker.value);
 	});
 };
 
