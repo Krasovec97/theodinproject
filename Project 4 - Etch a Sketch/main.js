@@ -1,6 +1,6 @@
 let userInput = 16;
 let mode = '';
-let color = 'rgba(255, 255, 255, 1)';
+let color = 'rgba(0, 0, 0, 0)';
 let currentColor = '';
 
 const elements = {
@@ -11,10 +11,11 @@ const elements = {
 	darkenBtn: document.querySelector('#darken-button'),
 	lightenBtn: document.querySelector('#lighten-button'),
 	rainbowBtn: document.querySelector('#rainbow-button'),
+	eraserBtn: document.querySelector('#eraser-button'),
 	colorPicker: document.querySelector('#color-pick-input'),
 };
 
-const modeManager = (colorToSet = 'rgba(0, 0, 0, 1)', modeToSet = '') => {
+const modeManager = (colorToSet = 'rgba(0, 0, 0, 0)', modeToSet = '') => {
 	color = colorToSet;
 	mode = modeToSet;
 };
@@ -34,7 +35,6 @@ const setColorManagement = () => {
 			switch (mode) {
 				case 'rainbow':
 					const randColor = randomColor();
-					console.log(randColor);
 					event.target.style.setProperty('background-color', `${randColor}`);
 					break;
 
@@ -42,7 +42,7 @@ const setColorManagement = () => {
 					event.target.style.setProperty(
 						'background-color',
 						`rgba(${backgroundColor.red}, ${backgroundColor.green}, ${backgroundColor.blue},
-							${alphaManager(alphaToNum, true)})`
+								${alphaManager(alphaToNum, true)})`
 					);
 					break;
 
@@ -50,8 +50,12 @@ const setColorManagement = () => {
 					event.target.style.setProperty(
 						'background-color',
 						`rgba(${backgroundColor.red}, ${backgroundColor.green}, ${backgroundColor.blue},
-						${alphaManager(alphaToNum, false)})`
+						${alphaManager(alphaToNum, false, backgroundColor)})`
 					);
+					break;
+
+				case 'eraser':
+					event.target.style.setProperty('background-color', `${color}`);
 					break;
 
 				default:
@@ -73,7 +77,7 @@ const gridGenerate = (userInput) => {
 	while (currentCells !== cellsNeeded) {
 		const cell = document.createElement('div');
 		cell.classList.add('grid-item');
-		cell.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+		cell.style.backgroundColor = 'rgba(0, 0, 0, 0)';
 		elements.gridContainer.appendChild(cell);
 		currentCells++;
 	}
@@ -96,7 +100,7 @@ const controlsInit = () => {
 	elements.resetBtn.addEventListener('click', () => {
 		const cells = document.querySelectorAll('.grid-item');
 		cells.forEach((cell) => {
-			cell.style.setProperty('background-color', 'rgba(255, 255, 255, 1)');
+			cell.style.setProperty('background-color', 'rgba(0, 0, 0, 0)');
 		});
 		modeManager(currentColor);
 	});
@@ -114,6 +118,10 @@ const controlsInit = () => {
 		modeManager(currentColor, 'lighten');
 	});
 
+	elements.eraserBtn.addEventListener('click', () => {
+		modeManager('rgba(0,0,0,0)', 'eraser');
+	});
+
 	elements.colorPicker.addEventListener('input', () => {
 		currentColor = elements.colorPicker.value;
 		modeManager(currentColor);
@@ -124,7 +132,7 @@ const randomColor = () => {
 	const randomR = Math.floor(Math.random() * 255);
 	const randomG = Math.floor(Math.random() * 255);
 	const randomB = Math.floor(Math.random() * 255);
-	const randomAlpha = Math.round(Math.random() * (9 - 3 + 1) + 3) / 10;
+	const randomAlpha = Math.round(Math.random() * (8 - 3 + 1) + 3) / 10;
 
 	return `rgba(${randomR}, ${randomG}, ${randomB}, ${randomAlpha})`;
 };
@@ -143,19 +151,14 @@ const rgbToObject = (rgb) => {
 	return obj;
 };
 
-const alphaManager = (alpha, increments) => {
+const alphaManager = (alpha, increments, colorObject) => {
 	if (increments) {
-		if (alpha < 0.9) {
-			return (alpha += 0.1);
-		} else {
-			return alpha;
-		}
+		return (alpha += 0.1);
 	} else {
-		if (alpha > 0.1) {
-			return (alpha -= 0.1);
-		} else {
-			return alpha;
+		if (isNaN(alpha)) {
+			return (colorObject.alpha = 0.9);
 		}
+		return (alpha -= 0.1);
 	}
 };
 
