@@ -30,36 +30,32 @@ const setColorManagement = () => {
 	gridItems.forEach((item) => {
 		item.addEventListener('mouseenter', (event) => {
 			const backgroundColor = rgbToObject(event.target.style.backgroundColor);
+			const { red, green, blue } = rgbToObject(event.target.style.backgroundColor);
+
 			let alphaToNum = parseFloat(backgroundColor.alpha);
 
-			const red = backgroundColor.red;
-			const green = backgroundColor.green;
-			const blue = backgroundColor.blue;
+			const darkenColor = `rgba(${red}, ${green}, ${blue}, ${alphaManager(alphaToNum, true)})`;
+			const lightenColor = `rgba(${red}, ${green}, ${blue}, ${alphaManager(alphaToNum, false, backgroundColor)})`;
 
 			switch (mode) {
 				case 'rainbow':
-					const randColor = randomColor();
-					event.target.style.setProperty('background-color', `${randColor}`);
+					color = randomColor();
 					break;
 
 				case 'darken':
-					event.target.style.setProperty(
-						'background-color',
-						`rgba(${red}, ${green}, ${blue},${alphaManager(alphaToNum, true)})`
-					);
+					color = darkenColor;
 					break;
 
 				case 'lighten':
-					event.target.style.setProperty(
-						'background-color',
-						`rgba(${red}, ${green}, ${blue},${alphaManager(alphaToNum, false, backgroundColor)})`
-					);
+					color = lightenColor;
 					break;
 
 				default:
-					event.target.style.setProperty('background-color', `${color}`);
+					color = color;
 					break;
 			}
+
+			event.target.style.setProperty('background-color', color);
 		});
 	});
 };
