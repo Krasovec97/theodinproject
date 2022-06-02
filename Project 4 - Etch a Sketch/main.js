@@ -27,8 +27,6 @@ const setColorManagement = () => {
 	const gridItems = document.querySelectorAll('.grid-item');
 
 	gridItems.forEach((item) => {
-		let rgbColorValue = 255;
-
 		item.addEventListener('mouseenter', (event) => {
 			const backgroundColor = rgbToObject(event.target.style.backgroundColor);
 			let alphaToNum = parseFloat(backgroundColor.alpha);
@@ -36,6 +34,7 @@ const setColorManagement = () => {
 			switch (mode) {
 				case 'rainbow':
 					const randColor = randomColor();
+					console.log(randColor);
 					event.target.style.setProperty('background-color', `${randColor}`);
 					break;
 
@@ -43,7 +42,7 @@ const setColorManagement = () => {
 					event.target.style.setProperty(
 						'background-color',
 						`rgba(${backgroundColor.red}, ${backgroundColor.green}, ${backgroundColor.blue},
-							${(alphaToNum = alphaToNum + 0.1)})`
+							${alphaManager(alphaToNum, true)})`
 					);
 					break;
 
@@ -51,7 +50,7 @@ const setColorManagement = () => {
 					event.target.style.setProperty(
 						'background-color',
 						`rgba(${backgroundColor.red}, ${backgroundColor.green}, ${backgroundColor.blue},
-						${(alphaToNum = alphaToNum - 0.1)})`
+						${alphaManager(alphaToNum, false)})`
 					);
 					break;
 
@@ -125,12 +124,12 @@ const randomColor = () => {
 	const randomR = Math.floor(Math.random() * 255);
 	const randomG = Math.floor(Math.random() * 255);
 	const randomB = Math.floor(Math.random() * 255);
-	const randomAlpha = Math.round(Math.random() * 10) / 10;
+	const randomAlpha = Math.round(Math.random() * (9 - 3 + 1) + 3) / 10;
 
 	return `rgba(${randomR}, ${randomG}, ${randomB}, ${randomAlpha})`;
 };
 
-function rgbToObject(rgb) {
+const rgbToObject = (rgb) => {
 	let colors = ['red', 'green', 'blue', 'alpha'];
 
 	let colorArr = rgb.slice(rgb.indexOf('(') + 1, rgb.indexOf(')')).split(', ');
@@ -142,7 +141,23 @@ function rgbToObject(rgb) {
 	});
 
 	return obj;
-}
+};
+
+const alphaManager = (alpha, increments) => {
+	if (increments) {
+		if (alpha < 0.9) {
+			return (alpha += 0.1);
+		} else {
+			return alpha;
+		}
+	} else {
+		if (alpha > 0.1) {
+			return (alpha -= 0.1);
+		} else {
+			return alpha;
+		}
+	}
+};
 
 gridGenerate(userInput);
 controlsInit();
