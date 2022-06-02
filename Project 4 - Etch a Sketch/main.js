@@ -15,7 +15,7 @@ const elements = {
 	colorPicker: document.querySelector('#color-pick-input'),
 };
 
-const modeManager = (colorToSet = 'rgba(0, 0, 0, 0)', modeToSet = '') => {
+const modeManager = (colorToSet = 'rgba(0, 0, 0, 1)', modeToSet = '') => {
 	color = colorToSet;
 	mode = modeToSet;
 };
@@ -32,6 +32,10 @@ const setColorManagement = () => {
 			const backgroundColor = rgbToObject(event.target.style.backgroundColor);
 			let alphaToNum = parseFloat(backgroundColor.alpha);
 
+			const red = backgroundColor.red;
+			const green = backgroundColor.green;
+			const blue = backgroundColor.blue;
+
 			switch (mode) {
 				case 'rainbow':
 					const randColor = randomColor();
@@ -41,21 +45,15 @@ const setColorManagement = () => {
 				case 'darken':
 					event.target.style.setProperty(
 						'background-color',
-						`rgba(${backgroundColor.red}, ${backgroundColor.green}, ${backgroundColor.blue},
-								${alphaManager(alphaToNum, true)})`
+						`rgba(${red}, ${green}, ${blue},${alphaManager(alphaToNum, true)})`
 					);
 					break;
 
 				case 'lighten':
 					event.target.style.setProperty(
 						'background-color',
-						`rgba(${backgroundColor.red}, ${backgroundColor.green}, ${backgroundColor.blue},
-						${alphaManager(alphaToNum, false, backgroundColor)})`
+						`rgba(${red}, ${green}, ${blue},${alphaManager(alphaToNum, false, backgroundColor)})`
 					);
-					break;
-
-				case 'eraser':
-					event.target.style.setProperty('background-color', `${color}`);
 					break;
 
 				default:
@@ -87,6 +85,7 @@ const gridGenerate = (userInput) => {
 };
 
 const controlsInit = () => {
+	// Grid Size
 	elements.slider.addEventListener('input', () => {
 		elements.sliderOutput.textContent = `Desired grid size: ${elements.slider.value} x ${elements.slider.value}`;
 	});
@@ -97,6 +96,7 @@ const controlsInit = () => {
 		gridGenerate(userInput);
 	});
 
+	// Buttons
 	elements.resetBtn.addEventListener('click', () => {
 		const cells = document.querySelectorAll('.grid-item');
 		cells.forEach((cell) => {
@@ -119,9 +119,10 @@ const controlsInit = () => {
 	});
 
 	elements.eraserBtn.addEventListener('click', () => {
-		modeManager('rgba(0,0,0,0)', 'eraser');
+		modeManager('rgba(0,0,0,0)');
 	});
 
+	// Color Picker
 	elements.colorPicker.addEventListener('input', () => {
 		currentColor = elements.colorPicker.value;
 		modeManager(currentColor);
