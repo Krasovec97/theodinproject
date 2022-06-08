@@ -1,0 +1,31 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	max-width: 1200px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.calculator-body__numpad {
+	width: 300px;
+	display: grid;
+	grid-template-columns: 50px 50px 50px;
+	grid-template-rows: auto;
+	gap: 10px;
+	text-align: center;
+	margin: 0 auto;
+	justify-content: center;
+}
+
+.btn {
+	width: 50px;
+	padding: 15px;
+	border: none;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#btn10 {
+	width: 110px;
+}
