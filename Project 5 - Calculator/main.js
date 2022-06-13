@@ -7,19 +7,21 @@ const elements = {
 	outputHistory: document.querySelector('.output__history'),
 };
 
+const characters = ['+', '-', '/', '*', '+ / -', '=', 'AC'];
+
 const operate = (operator, num1, num2) => {
 	switch (operator) {
-		case 'add':
-			return num1 + num2;
+		case '+':
+			return +num1 + +num2;
 
-		case 'substract':
-			return num1 - num2;
+		case '-':
+			return +num1 - +num2;
 
-		case 'multiply':
-			return num1 * num2;
+		case '*':
+			return +num1 * +num2;
 
-		case 'divide':
-			return num1 / num2;
+		case '/':
+			return +num1 / +num2;
 	}
 };
 
@@ -38,12 +40,21 @@ const buttonLogic = (button) => {
 	button.value = button.innerText;
 
 	button.addEventListener('click', () => {
-		if (button.value === '=') {
-			previousValue = currentValue;
+		if (!characters.includes(button.value)) {
+			currentValue += button.value;
+			setOutput();
 		}
 
-		currentValue += button.value;
-		setOutput();
+		switch (button.value) {
+			case '=':
+				previousValue = currentValue;
+				setOutput();
+				break;
+			case 'AC':
+				previousValue = '';
+				currentValue = '';
+				setOutput();
+		}
 	});
 };
 
