@@ -1,5 +1,7 @@
 currentValue = '';
 previousValue = '';
+numOneToOperate = '';
+numTwoToOperate = '';
 
 const elements = {
 	buttons: document.querySelectorAll('button'),
@@ -30,6 +32,12 @@ const setOutput = () => {
 	elements.outputHistory.innerText = previousValue;
 };
 
+const setNumbers = (num1, num2) => {
+	numOneToOperate = num1;
+	numTwoToOperate = num2;
+	console.log(`First number: ${num1}, second ${num2}`);
+};
+
 const calculatorLogic = () => {
 	elements.buttons.forEach((button) => {
 		buttonLogic(button);
@@ -43,19 +51,27 @@ const buttonLogic = (button) => {
 		if (!characters.includes(button.value)) {
 			currentValue += button.value;
 			setOutput();
-		}
-
-		switch (button.value) {
-			case '=':
-				previousValue = currentValue;
-				setOutput();
-				break;
-			case 'AC':
-				previousValue = '';
-				currentValue = '';
-				setOutput();
+		} else {
+			switch (button.value) {
+				case '=':
+					previousValue = currentValue;
+					setOutput();
+					break;
+				case 'AC':
+					clearCalc();
+					break;
+				case '+':
+					setNumbers(currentValue);
+					break;
+			}
 		}
 	});
+};
+
+const clearCalc = () => {
+	previousValue = '';
+	currentValue = '';
+	setOutput();
 };
 
 calculatorLogic();
