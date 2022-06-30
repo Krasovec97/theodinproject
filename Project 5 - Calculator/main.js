@@ -56,26 +56,26 @@ const calculatorLogic = () => {
 	});
 };
 
-const setCalculation = (operator) => {
+const calculate = (operator, resultWithOperator = false) => {
 	previousOperator = operator;
+	let operatorChain = currentValue;
 
-	if (!numOneToOperate && !numTwoToOperate) {
-		numOneToOperate = currentValue;
-		previousValue = `${numOneToOperate} ${operator}`;
-		currentValue = '';
+	if (resultWithOperator) {
+		if (!numOneToOperate && !numTwoToOperate) {
+			numOneToOperate = currentValue;
+			previousValue = `${numOneToOperate} ${operator}`;
+			currentValue = '';
+		} else {
+			currentValue = '';
+			previousValue = `${previousResult} ${operator}`;
+			operate(previousResult, currentValue, previousOperator);
+		}
 	} else {
-		currentValue = '';
-		previousValue = `${previousResult} ${operator}`;
-		operate(previousResult, currentValue, previousOperator);
-	}
-};
-
-// Main issue of chaining calculations
-const callOperate = () => {
-	if (!!previousValue) {
-		numTwoToOperate = currentValue;
-		if (!!numTwoToOperate) {
-			previousResult = operate(numOneToOperate, numTwoToOperate, previousOperator);
+		if (!!previousValue) {
+			numTwoToOperate = currentValue;
+			if (!!numTwoToOperate) {
+				previousResult = operate(numOneToOperate, numTwoToOperate, previousOperator);
+			}
 		}
 	}
 };
@@ -90,25 +90,24 @@ const buttonLogic = (button) => {
 		} else {
 			switch (button.value) {
 				case '=':
-					callOperate();
+					calculate(previousOperator, false);
 					break;
 				case 'AC':
 					clearCalc();
 					break;
 				case '+':
-					setCalculation('+');
-					setOutput();
+					calculate('+', true);
 					break;
 				case '-':
-					setCalculation('-');
+					calculate('-', true);
 					setOutput();
 					break;
 				case '/':
-					setCalculation('/');
+					calculate('/', true);
 					setOutput();
 					break;
 				case '*':
-					setCalculation('*');
+					calculate('*', true);
 					setOutput();
 					break;
 				case '+ / -':
