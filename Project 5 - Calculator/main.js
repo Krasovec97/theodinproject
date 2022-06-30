@@ -49,6 +49,7 @@ const setOutput = (isCalc = false, previousOperator, result) => {
 		elements.outputCurrent.innerText = `${result}`;
 	}
 };
+
 const calculatorLogic = () => {
 	elements.buttons.forEach((button) => {
 		buttonLogic(button);
@@ -69,6 +70,16 @@ const setCalculation = (operator) => {
 	}
 };
 
+// Main issue of chaining calculations
+const callOperate = () => {
+	if (!!previousValue) {
+		numTwoToOperate = currentValue;
+		if (!!numTwoToOperate) {
+			previousResult = operate(numOneToOperate, numTwoToOperate, previousOperator);
+		}
+	}
+};
+
 const buttonLogic = (button) => {
 	button.value = button.innerText;
 
@@ -79,13 +90,7 @@ const buttonLogic = (button) => {
 		} else {
 			switch (button.value) {
 				case '=':
-					if (!!previousValue) {
-						numTwoToOperate = currentValue;
-						if (!!numTwoToOperate) {
-							previousResult = operate(numOneToOperate, numTwoToOperate, previousOperator);
-						}
-					}
-
+					callOperate();
 					break;
 				case 'AC':
 					clearCalc();
