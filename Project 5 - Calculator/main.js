@@ -1,7 +1,9 @@
 currentValue = '';
 previousValue = '';
+
 numOneToOperate = '';
 numTwoToOperate = '';
+
 previousOperator = '';
 previousResult = '';
 
@@ -58,13 +60,14 @@ const calculatorLogic = () => {
 
 const calculate = (operator, resultWithOperator = false) => {
 	previousOperator = operator;
-	let operatorChain = currentValue;
 
 	if (resultWithOperator) {
 		if (!numOneToOperate && !numTwoToOperate) {
 			numOneToOperate = currentValue;
 			previousValue = `${numOneToOperate} ${operator}`;
 			currentValue = '';
+		} else if (!!previousValue) {
+			console.log('I-ve been called');
 		} else {
 			currentValue = '';
 			previousValue = `${previousResult} ${operator}`;
