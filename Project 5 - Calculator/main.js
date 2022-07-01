@@ -34,26 +34,30 @@ const operate = (num1, num2, operator, calcByOperator = false) => {
 			break;
 
 		case '/':
+			if (parseInt(num1) === 0 || parseInt(num2) === 0) {
+				elements.outputCurrent.innerHTML = 'Syntax Error';
+				elements.outputHistory.innerHTML = 'Syntax Error';
+				return;
+			}
 			result = +num1 / +num2;
 			break;
 	}
 
 	previousResult = result;
-	setOutput(true, operator, result, calcByOperator);
 	return result;
 };
 
-const setOutput = (isCalc = false, previousOperator, result, calcByOperator) => {
+const setOutput = (isCalc = false, calcByOperator = false) => {
 	if (!isCalc) {
 		elements.outputCurrent.innerText = currentValue;
 		elements.outputHistory.innerText = previousValue;
 	} else {
 		if (calcByOperator) {
-			elements.outputHistory.innerText = `${previousResult} ${previousOperator} ${numOneToOperate} =`;
-			elements.outputCurrent.innerText = `${previousResult}`;
+			elements.outputHistory.innerText = `${numOneToOperate} ${previousOperator} ${numTwoToOperate} =`;
+			elements.outputCurrent.innerText = `${parseFloat(previousValue.toFixed(5))}`;
 		} else {
 			elements.outputHistory.innerText = `${numOneToOperate} ${previousOperator} ${numTwoToOperate} =`;
-			elements.outputCurrent.innerText = `${result}`;
+			elements.outputCurrent.innerText = `${parseFloat(previousResult.toFixed(5))}`;
 		}
 	}
 };
@@ -66,28 +70,27 @@ const calculatorLogic = () => {
 
 const calculate = (operator, resultWithOperator = false, calcByOperator) => {
 	if (resultWithOperator) {
-		if (!numOneToOperate && !numTwoToOperate) {
-			numOneToOperate = currentValue;
-			console.log(`First num is = ${numOneToOperate}`);
-			previousValue = `${numOneToOperate} ${operator}`;
-			currentValue = '';
-		} else if (calcByOperator) {
+		if (calcByOperator) {
 			if (!!previousValue) {
 				numTwoToOperate = currentValue;
 				previousValue = operate(numOneToOperate, numTwoToOperate, previousOperator);
 				operate(previousValue, numTwoToOperate, previousOperator, true);
+				setOutput(true, calcByOperator);
 				currentValue = '';
 			}
-		} else {
+		}
+
+		if (!numOneToOperate && !numTwoToOperate) {
+			numOneToOperate = currentValue;
+			previousValue = `${numOneToOperate} ${operator}`;
 			currentValue = '';
-			previousValue = `${previousResult} ${operator}`;
-			operate(previousResult, currentValue, previousOperator);
 		}
 	} else {
 		if (!!previousValue) {
 			numTwoToOperate = currentValue;
 			if (!!numTwoToOperate) {
 				operate(numOneToOperate, numTwoToOperate, previousOperator);
+				setOutput(true, false);
 			}
 		}
 	}
@@ -112,19 +115,15 @@ const buttonLogic = (button) => {
 					break;
 				case '+':
 					calculate('+', true, true);
-					setOutput();
 					break;
 				case '-':
 					calculate('-', true, true);
-					setOutput();
 					break;
 				case '/':
 					calculate('/', true, true);
-					setOutput();
 					break;
 				case '*':
 					calculate('*', true, true);
-					setOutput();
 					break;
 				case '+ / -':
 					break;
