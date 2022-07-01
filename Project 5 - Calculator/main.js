@@ -44,7 +44,7 @@ const operate = (num1, num2, operator, calcByOperator = false) => {
 	}
 
 	previousResult = result;
-	return result;
+	return toFiveDecimals(result);
 };
 
 const setOutput = (isCalc = false, calcByOperator = false) => {
@@ -54,7 +54,7 @@ const setOutput = (isCalc = false, calcByOperator = false) => {
 	} else {
 		if (calcByOperator) {
 			elements.outputHistory.innerText = `${toFiveDecimals(numOneToOperate)} ${previousOperator}`;
-			elements.outputCurrent.innerText = `${currentValue}`;
+			elements.outputCurrent.innerText = `${toFiveDecimals(currentValue)}`;
 		} else {
 			elements.outputHistory.innerText = `${toFiveDecimals(numOneToOperate)} ${previousOperator} ${toFiveDecimals(numTwoToOperate)} =`;
 			elements.outputCurrent.innerText = `${toFiveDecimals(previousResult)}`;
@@ -63,7 +63,11 @@ const setOutput = (isCalc = false, calcByOperator = false) => {
 };
 
 const toFiveDecimals = (string) => {
-	if (+string % 1 === 0) {
+	if (string === "") {
+		return string;
+	}
+
+	if (parseInt(string) % 1 === 0) {
 		return string;
 	} else {
 		return parseFloat(string).toFixed(5);
@@ -89,7 +93,7 @@ const calculate = (operator, resultWithOperator = false, calcByOperator) => {
 
 		if (!numOneToOperate && !numTwoToOperate) {
 			numOneToOperate = currentValue;
-			previousValue = `${numOneToOperate} ${operator}`;
+			previousValue = `${toFiveDecimals(numOneToOperate)} ${operator}`;
 			currentValue = "";
 		}
 	} else {
