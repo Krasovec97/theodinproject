@@ -13,7 +13,7 @@ const elements = {
 	outputHistory: document.querySelector('.output__history'),
 };
 
-const characters = ['+', '-', '/', '*', '+ / -', '=', 'AC'];
+const characters = ['+', '-', '/', '*', 'C', '=', 'AC'];
 
 const operate = (num1, num2, operator, calcByOperator = false) => {
 	let result = 0;
@@ -125,7 +125,9 @@ const buttonLogic = (button) => {
 				case '*':
 					calculate('*', true, true);
 					break;
-				case '+ / -':
+				case 'C':
+					currentValue = '';
+					setOutput();
 					break;
 			}
 		}
