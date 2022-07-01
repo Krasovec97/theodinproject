@@ -1,11 +1,11 @@
-currentValue = '';
-previousValue = '';
+let currentValue = '';
+let previousValue = '';
 
-numOneToOperate = '';
-numTwoToOperate = '';
+let numOneToOperate = '';
+let numTwoToOperate = '';
 
-previousOperator = '';
-previousResult = '';
+let previousOperator = '';
+let previousResult = '';
 
 const elements = {
 	buttons: document.querySelectorAll('button'),
@@ -15,7 +15,7 @@ const elements = {
 
 const characters = ['+', '-', '/', '*', '+ / -', '=', 'AC'];
 
-const operate = (num1, num2, operator) => {
+const operate = (num1, num2, operator, calcByOperator = false) => {
 	let result = 0;
 	numOneToOperate = num1;
 	numTwoToOperate = num2;
@@ -38,17 +38,23 @@ const operate = (num1, num2, operator) => {
 			break;
 	}
 
-	setOutput(true, operator, result);
+	previousResult = result;
+	setOutput(true, operator, result, calcByOperator);
 	return result;
 };
 
-const setOutput = (isCalc = false, previousOperator, result) => {
+const setOutput = (isCalc = false, previousOperator, result, calcByOperator) => {
 	if (!isCalc) {
 		elements.outputCurrent.innerText = currentValue;
 		elements.outputHistory.innerText = previousValue;
 	} else {
-		elements.outputHistory.innerText = `${numOneToOperate} ${previousOperator} ${numTwoToOperate} =`;
-		elements.outputCurrent.innerText = `${result}`;
+		if (calcByOperator) {
+			elements.outputHistory.innerText = `${previousResult} ${previousOperator} ${numOneToOperate} =`;
+			elements.outputCurrent.innerText = `${previousResult}`;
+		} else {
+			elements.outputHistory.innerText = `${numOneToOperate} ${previousOperator} ${numTwoToOperate} =`;
+			elements.outputCurrent.innerText = `${result}`;
+		}
 	}
 };
 
@@ -58,17 +64,20 @@ const calculatorLogic = () => {
 	});
 };
 
-const calculate = (operator, resultWithOperator = false) => {
-	previousOperator = operator;
-
+const calculate = (operator, resultWithOperator = false, calcByOperator) => {
 	if (resultWithOperator) {
 		if (!numOneToOperate && !numTwoToOperate) {
 			numOneToOperate = currentValue;
+			console.log(`First num is = ${numOneToOperate}`);
 			previousValue = `${numOneToOperate} ${operator}`;
 			currentValue = '';
-		} else if (!!previousValue) {
-			numTwoToOperate = currentValue;
-			operate(previousValue, numTwoToOperate, previousOperator);
+		} else if (calcByOperator) {
+			if (!!previousValue) {
+				numTwoToOperate = currentValue;
+				previousValue = operate(numOneToOperate, numTwoToOperate, previousOperator);
+				operate(previousValue, numTwoToOperate, previousOperator, true);
+				currentValue = '';
+			}
 		} else {
 			currentValue = '';
 			previousValue = `${previousResult} ${operator}`;
@@ -78,10 +87,12 @@ const calculate = (operator, resultWithOperator = false) => {
 		if (!!previousValue) {
 			numTwoToOperate = currentValue;
 			if (!!numTwoToOperate) {
-				previousResult = operate(numOneToOperate, numTwoToOperate, previousOperator);
+				operate(numOneToOperate, numTwoToOperate, previousOperator);
 			}
 		}
 	}
+
+	previousOperator = operator;
 };
 
 const buttonLogic = (button) => {
@@ -100,18 +111,19 @@ const buttonLogic = (button) => {
 					clearCalc();
 					break;
 				case '+':
-					calculate('+', true);
+					calculate('+', true, true);
+					setOutput();
 					break;
 				case '-':
-					calculate('-', true);
+					calculate('-', true, true);
 					setOutput();
 					break;
 				case '/':
-					calculate('/', true);
+					calculate('/', true, true);
 					setOutput();
 					break;
 				case '*':
-					calculate('*', true);
+					calculate('*', true, true);
 					setOutput();
 					break;
 				case '+ / -':
