@@ -67,7 +67,8 @@ const calculate = (operator, resultWithOperator = false) => {
 			previousValue = `${numOneToOperate} ${operator}`;
 			currentValue = '';
 		} else if (!!previousValue) {
-			console.log('I-ve been called');
+			numTwoToOperate = currentValue;
+			operate(previousValue, numTwoToOperate, previousOperator);
 		} else {
 			currentValue = '';
 			previousValue = `${previousResult} ${operator}`;
