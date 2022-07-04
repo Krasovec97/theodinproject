@@ -7,8 +7,6 @@ let numTwoToOperate = "";
 let previousOperator = "";
 let previousResult = "";
 
-const allowedChars = /^[0-9]*\.?[0-9]*$/;
-
 const elements = {
 	buttons: document.querySelectorAll("button"),
 	outputCurrent: document.querySelector(".output__current"),
@@ -113,16 +111,17 @@ const calculate = (operator, resultWithOperator = false, calcByOperator) => {
 
 const buttonLogic = (button) => {
 	button.value = button.innerText;
-
 	button.addEventListener("click", () => {
 		if (!characters.includes(button.value)) {
-			if (allowedChars) {
+			const isValid = currentValue.match(/^[0-9]*\.?[0-9]*$/);
+			if (isValid) {
 				currentValue += button.value;
-				setOutput();
-				console.log(allowedChars.test(currentValue));
+				console.log(currentValue);
 			} else {
-				return;
+				currentValue = currentValue.slice(0, currentValue.length - 1);
 			}
+
+			setOutput();
 		} else {
 			switch (button.value) {
 				case "=":
