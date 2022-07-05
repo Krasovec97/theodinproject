@@ -113,14 +113,10 @@ const buttonLogic = (button) => {
 	button.value = button.innerText;
 	button.addEventListener("click", () => {
 		if (!characters.includes(button.value)) {
-			const isValid = currentValue.match(/^[0-9]*\.?[0-9]*$/);
-			if (isValid) {
-				currentValue += button.value;
-				console.log(currentValue);
-			} else {
-				currentValue = currentValue.slice(0, currentValue.length - 1);
+			if (button.value.includes(".") && currentValue.includes(".")) {
+				return;
 			}
-
+			currentValue += button.value;
 			setOutput();
 		} else {
 			switch (button.value) {
