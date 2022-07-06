@@ -7,6 +7,8 @@ let numTwoToOperate = '';
 let previousOperator = '';
 let previousResult = '';
 
+let synError = false;
+
 const elements = {
 	buttons: document.querySelectorAll('button'),
 	outputCurrent: document.querySelector('.output__current'),
@@ -41,6 +43,7 @@ const operate = (num1, num2, operator) => {
 
 		case '/':
 			if (parseFloat(num1) === 0 || parseFloat(num2) === 0) {
+				synError = true;
 				elements.outputCurrent.innerHTML = 'Syntax Error';
 				elements.outputHistory.innerHTML = '';
 				return;
@@ -54,7 +57,7 @@ const operate = (num1, num2, operator) => {
 };
 
 const setOutput = (isCalc = false, calcByOperator = false) => {
-	if (elements.outputCurrent.innerHTML === 'Syntax Error') {
+	if (synError) {
 		return;
 	}
 
@@ -92,17 +95,15 @@ const calculatorLogic = () => {
 
 const calculate = (operator, resultWithOperator = false, calcByOperator) => {
 	if (resultWithOperator) {
-		if (calcByOperator) {
-			if (!!previousValue) {
-				numTwoToOperate = currentValue;
-				if (numTwoToOperate === '') {
-					previousOperator = operator;
-					return;
-				}
-				previousValue = operate(numOneToOperate, numTwoToOperate, previousOperator);
-				operate(previousValue, numTwoToOperate, previousOperator);
-				currentValue = '';
+		if (calcByOperator && !!previousValue) {
+			numTwoToOperate = currentValue;
+			if (numTwoToOperate === '') {
+				previousOperator = operator;
+				return;
 			}
+			previousValue = operate(numOneToOperate, numTwoToOperate, previousOperator);
+			operate(previousValue, numTwoToOperate, previousOperator);
+			currentValue = '';
 		}
 
 		if (!numOneToOperate && !numTwoToOperate) {
@@ -169,6 +170,7 @@ const buttonLogic = (button) => {
 };
 
 const clearCalc = () => {
+	synError = false;
 	elements.outputCurrent.innerHTML = '';
 	elements.outputHistory.innerHTML = '';
 	currentValue = '';
