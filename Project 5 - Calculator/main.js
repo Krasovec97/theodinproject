@@ -17,6 +17,12 @@ const characters = ["+", "-", "/", "*", "C", "=", "AC"];
 
 const operate = (num1, num2, operator, calcByOperator = false) => {
 	let result = 0;
+
+	if (num1 === "" || num2 === "") {
+		num1 = 0;
+		num2 = 0;
+	}
+
 	numOneToOperate = num1;
 	numTwoToOperate = num2;
 
@@ -34,7 +40,7 @@ const operate = (num1, num2, operator, calcByOperator = false) => {
 			break;
 
 		case "/":
-			if (parseInt(num1) === 0 || parseInt(num2) === 0) {
+			if (parseFloat(num1) === 0 || parseFloat(num2) === 0) {
 				elements.outputCurrent.innerHTML = "Syntax Error";
 				elements.outputHistory.innerHTML = "Syntax Error";
 				return;
@@ -48,6 +54,10 @@ const operate = (num1, num2, operator, calcByOperator = false) => {
 };
 
 const setOutput = (isCalc = false, calcByOperator = false) => {
+	if (elements.outputCurrent.innerHTML === "Syntax Error") {
+		return;
+	}
+
 	if (!isCalc) {
 		elements.outputCurrent.innerText = toFiveDecimals(currentValue);
 		elements.outputHistory.innerText = toFiveDecimals(previousValue);
@@ -67,7 +77,7 @@ const toFiveDecimals = (string) => {
 		return string;
 	}
 
-	if (parseInt(string) % 1 === 0) {
+	if (parseFloat(string) % 1 === 0) {
 		return string;
 	} else {
 		return parseFloat(string).toFixed(5);
@@ -112,6 +122,7 @@ const calculate = (operator, resultWithOperator = false, calcByOperator) => {
 const buttonLogic = (button) => {
 	button.value = button.innerText;
 	button.addEventListener("click", () => {
+		// debugger;
 		if (!characters.includes(button.value)) {
 			if (button.value.includes(".") && currentValue.includes(".")) {
 				return;
@@ -152,6 +163,8 @@ const buttonLogic = (button) => {
 };
 
 const clearCalc = () => {
+	elements.outputCurrent.innerHTML = "";
+	elements.outputHistory.innerHTML = "";
 	currentValue = "";
 	previousValue = "";
 	numOneToOperate = "";
