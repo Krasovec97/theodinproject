@@ -102,6 +102,10 @@ const calculate = (operator, resultWithOperator = false, calcByOperator) => {
 		}
 
 		if (!numOneToOperate && !numTwoToOperate) {
+			if (currentValue === "") {
+				currentValue = 0;
+			}
+
 			numOneToOperate = currentValue;
 			previousValue = `${toFiveDecimals(numOneToOperate)} ${operator}`;
 			currentValue = "";
