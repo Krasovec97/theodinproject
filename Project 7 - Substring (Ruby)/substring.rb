@@ -13,5 +13,8 @@ def split_word (string)
       }.uniq
 end
 
-puts substring("below", dictionary)
+puts "What word would you like to check?"
+user_word = gets.chomp
+
+puts substring(user_word, dictionary)
 
